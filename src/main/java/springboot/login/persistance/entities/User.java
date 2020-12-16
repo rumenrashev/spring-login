@@ -22,7 +22,7 @@ public class User extends BaseEntity{
         this.authorities = authorities;
     }
 
-    @Column(name = "username",length = 20,nullable = false)
+    @Column(name = "username",nullable = false)
     public String getUsername() {
         return username;
     }
@@ -31,7 +31,7 @@ public class User extends BaseEntity{
         this.username = username;
     }
 
-    @Column(name = "password",length = 16,nullable = false)
+    @Column(name = "password",nullable = false)
     public String getPassword() {
         return password;
     }
