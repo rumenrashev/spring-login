@@ -3,6 +3,8 @@ package springboot.login.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import springboot.login.constants.Roles;
 import springboot.login.persistance.entities.User;
 import springboot.login.persistance.repository.RoleRepository;
@@ -31,7 +33,16 @@ public class UserRegisterServiceImpl implements UserRegisterService {
 
 
     @Override
-    public String registerUser(UserRegisterModel userRegisterModel) {
+    public String registerUser(UserRegisterModel userRegisterModel,BindingResult bindingResult) {
+        if (this.userRepository.findByUsername(userRegisterModel.getUsername()).isPresent()){
+            bindingResult.rejectValue("username", "error.user", "An account already exists for this username.");
+        }
+        if (!userRegisterModel.getPassword().equals(userRegisterModel.getPasswordConfirm())){
+            bindingResult.rejectValue("passwordConfirm", "error.user", "Passwords dont match");
+        }
+        if (bindingResult.hasErrors()){
+            return "/register";
+        }
         User user = this.modelMapper.map(userRegisterModel, User.class);
         user.setPassword(this.bCryptPasswordEncoder.encode(userRegisterModel.getPassword()));
         if (this.userRepository.count() == 0) {
@@ -40,6 +51,13 @@ public class UserRegisterServiceImpl implements UserRegisterService {
             user.setAuthorities(Set.of(this.roleRepository.getByAuthority(Roles.USER.toString()).get()));
         }
         this.userRepository.saveAndFlush(user);
-        return user.getUsername();
+        return "/login";
+    }
+
+    @Override
+    public void checkUsernameIsFree(UserRegisterModel userRegisterModel, BindingResult bindingResult) {
+       if (this.userRepository.findByUsername(userRegisterModel.getUsername()).isPresent()){
+           bindingResult.rejectValue("username", "error.user", "An account already exists for this email.");
+       }
     }
 }

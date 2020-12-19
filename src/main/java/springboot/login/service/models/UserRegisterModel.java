@@ -1,5 +1,9 @@
 package springboot.login.service.models;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+
 public class UserRegisterModel {
 
     private String username;
@@ -9,6 +13,7 @@ public class UserRegisterModel {
     public UserRegisterModel() {
     }
 
+    @Length(min = 8,max = 20,message = "Username must be between 8 and 20 characters!")
     public String getUsername() {
         return username;
     }
@@ -17,6 +22,7 @@ public class UserRegisterModel {
         this.username = username;
     }
 
+    @Length(min = 8,max = 16, message = "Password must be between 8 and 16 characters!")
     public String getPassword() {
         return password;
     }
@@ -25,6 +31,7 @@ public class UserRegisterModel {
         this.password = password;
     }
 
+    @Length(min = 8,message = "Min len 8")
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
