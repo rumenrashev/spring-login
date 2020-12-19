@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("user/home")
 public class HomeController extends BaseController {
 
     @GetMapping
     public ModelAndView home() {
-        return super.view("/home");
+        return super.view("user/home");
     }
 }
