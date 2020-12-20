@@ -1,6 +1,6 @@
 package springboot.login.constants;
 
 public enum Roles {
-    ADMIN,
-    USER;
+    ROLE_ADMIN,
+    ROLE_USER;
 }

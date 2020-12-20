@@ -48,7 +48,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
         if (this.userRepository.count() == 0) {
             user.setAuthorities(this.roleRepository.getAllBy());
         } else {
-            user.setAuthorities(Set.of(this.roleRepository.getByAuthority(Roles.USER.toString()).get()));
+            user.setAuthorities(Set.of(this.roleRepository.getByAuthority(Roles.ROLE_USER.toString()).get()));
         }
         this.userRepository.saveAndFlush(user);
         return "/login";

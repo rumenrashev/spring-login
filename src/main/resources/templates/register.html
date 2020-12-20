@@ -5,8 +5,18 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link th:href="@{/css/form.css}"  rel="stylesheet" type="text/css">
+    <link th:href="@{/css/fragments/nav.css}"  rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <style>
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
 </head>
 <body>
+    <nav>
+        <div th:insert="~{fragments/nav.html}">...</div>
+    </nav>
     <main>
         <form th:action="@{/register}"
               th:object="${user}" method="post">
@@ -31,11 +41,9 @@
 
                 <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
                 <button type="submit" class="registerbtn">Register</button>
+                    <p>Already have an account? <a href="/login">Sign in</a>.</p>
             </div>
 
-            <div class="container signin">
-                <p>Already have an account? <a href="/login">Sign in</a>.</p>
-            </div>
         </form>
     </main>
 </body>

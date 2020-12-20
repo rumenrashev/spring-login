@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">>
+<th:block>
+    <div class="topnav">
+        <a class="active" href="/user/home">Home</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin">Admin</a>
+        <div class="left-nav">
+            <a sec:authorize="isAnonymous()" href="/login">Login</a>
+            <a sec:authorize="isAnonymous()" href="/register">Register</a>
+            <a sec:authorize="hasRole('ROLE_USER')" href="/logout">Logout</a>
+        </div>
+    </div>
+</th:block>
+</html>
+
